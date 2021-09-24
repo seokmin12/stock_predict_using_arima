@@ -10,27 +10,19 @@ symbol = '005930'
 
 start = now - relativedelta(months=6)
 start = start.strftime('%Y-%m-%d')
-end = now - relativedelta(days=6)
-end = end.strftime('%Y-%m-%d')
+end = now.strftime('%Y-%m-%d')
 
-now_df = fdr.DataReader(symbol, start, now.strftime('%Y-%m-%d'))
-now_df = now_df.reset_index()
-now_df['day'] = now_df['Date']
-now_df['price'] = now_df['Close']
+df = fdr.DataReader(symbol, start, end)
+df = df.reset_index()
+df['day'] = df['Date']
+df['price'] = df['Close']
 
-now_data = now_df[['day', 'price']]
+data = df[['day', 'price']]
 
-past_df = fdr.DataReader(symbol, start, end)
-past_df = past_df.reset_index()
-past_df['day'] = past_df['Date']
-past_df['price'] = past_df['Close']
+data_len = len(data['price'])
 
-past_data = past_df[['day', 'price']]
-
-steps = 1
-
-now_data_list = list(now_data['price'].tail(steps))
-past_data_list = list(past_data['price'])
+now_data_list = list(data['price'].tail(1))
+past_data_list = list(data['price'].head(data_len - 1)
 
 i = 0
 past_data_len = []
