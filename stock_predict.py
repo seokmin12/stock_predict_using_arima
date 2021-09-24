@@ -43,7 +43,7 @@ def predict(update, context):
             if len(symbol) == 5:
                 symbol = '0' + symbol
             symbol_name = symbol_input
-        print(symbol)
+
         df = fdr.DataReader(symbol, start, end)
         df = df.reset_index()
         df['day'] = df['Date']
